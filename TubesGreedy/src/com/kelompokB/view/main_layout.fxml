@@ -18,9 +18,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="rootBorder" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kelompokB.controller.MainController">
+<BorderPane fx:id="rootBorder" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kelompokB.controller.MainController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -79,7 +77,6 @@
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -88,9 +85,9 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="Nama Kegiatan" GridPane.rowIndex="1" />
-                  <TextArea fx:id="namaKegiatan" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2" />
-                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnSpan="2147483647" GridPane.hgrow="ALWAYS" GridPane.rowIndex="8">
+                  <Label text="Nama Kegiatan" />
+                  <TextArea fx:id="namaKegiatan" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowSpan="2" />
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnSpan="2147483647" GridPane.hgrow="ALWAYS" GridPane.rowIndex="6">
                      <children>
                         <Button fx:id="btnSaveKegiatan" mnemonicParsing="false" onAction="#saveAction" text="Save" />
                         <Button mnemonicParsing="false" onAction="#resetAction" text="Reset" />
@@ -98,11 +95,19 @@
                         <Button fx:id="btnDeleteKegiatan" disable="true" mnemonicParsing="false" onAction="#deleteAction" text="Delete" />
                      </children>
                   </HBox>
-                  <Label text="Waktu Mulai" GridPane.rowIndex="3" />
-                  <Label text="Waktu Selesai" GridPane.rowIndex="4" />
-                  <TextField fx:id="waktuMulai" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <TextField fx:id="waktuSelesai" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <Label text="Waktu Mulai" GridPane.rowIndex="2" />
+                  <Label text="Waktu Selesai" GridPane.rowIndex="3" />
+                  <TextField fx:id="waktuMulai" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="waktuSelesai" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#outputAction" text="Next" />
+                     </children>
+                  </HBox>
                </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
+               </VBox.margin>
             </GridPane>
          </children>
       </VBox>
