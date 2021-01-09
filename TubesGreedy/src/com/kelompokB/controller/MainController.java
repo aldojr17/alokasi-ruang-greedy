@@ -97,6 +97,17 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         activities = FXCollections.observableArrayList();
+        activities.add(new Activity("A1",LocalTime.of(1,0), LocalTime.of(4,0)));
+        activities.add(new Activity("A2",LocalTime.of(3,0), LocalTime.of(5,0)));
+        activities.add(new Activity("A3",LocalTime.of(0,0), LocalTime.of(6,0)));
+        activities.add(new Activity("A4",LocalTime.of(5,0), LocalTime.of(7,0)));
+        activities.add(new Activity("A5",LocalTime.of(3,0), LocalTime.of(9,0)));
+        activities.add(new Activity("A6",LocalTime.of(5,0), LocalTime.of(9,0)));
+        activities.add(new Activity("A7",LocalTime.of(6,0), LocalTime.of(10,0)));
+        activities.add(new Activity("A8",LocalTime.of(8,0), LocalTime.of(11,0)));
+        activities.add(new Activity("A9",LocalTime.of(8,0), LocalTime.of(12,0)));
+        activities.add(new Activity("A10",LocalTime.of(2,0), LocalTime.of(14,0)));
+        activities.add(new Activity("A11",LocalTime.of(12,0), LocalTime.of(16,0)));
         tableKegiatan.setItems(activities);
         colNamaKegiatan.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getNamaKegiatan()));
         colWaktuMulai.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getWaktuMulai().toString()));
