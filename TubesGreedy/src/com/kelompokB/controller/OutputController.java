@@ -1,21 +1,27 @@
 package com.kelompokB.controller;
 
 import com.kelompokB.entity.Activity;
+import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+import javafx.util.Callback;
+import javafx.util.Duration;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
@@ -28,24 +34,27 @@ public class OutputController implements Initializable {
     @FXML
     private GridPane ruangan;
     private ObservableList<Activity> activities;
+    private ObservableList<Activity> listActivity;
 
     public void setMainController(MainController mainController){
         this.mainController = mainController;
-        activities = mainController.getActivities();
+        listActivity = mainController.getActivities();
+        activities.addAll(listActivity);
+
         Comparator<Activity> comparator = Comparator.comparing(Activity::getWaktuSelesai);
-        SortedList<Activity> activitySortedList = new SortedList<>(activities, comparator);
+        SortedList<Activity> activitySortedList = new SortedList<>(listActivity, comparator);
         tableActivity.setItems(activitySortedList);
     }
 
     public void output(){
         int ruang = 0;
         while (activities.size() > 0){
-            printMaxActivities(activities, ruang);
+            greedyAlgorithm(activities, ruang);
             ruang++;
         }
     }
 
-    public void printMaxActivities(ObservableList<Activity> activities, int ruang)
+    public void greedyAlgorithm(ObservableList<Activity> activities, int ruang)
     {
         ArrayList<Activity> del = new ArrayList<Activity>();
         int row = 0;
@@ -54,19 +63,13 @@ public class OutputController implements Initializable {
         GridPane.setMargin(text, new Insets(20));
         ruangan.add(text,ruang,row++);
 
-        //  n   -->  Total number of activities
-        //  s[] -->  An array that contains start time of all activities
-        //  f[] -->  An array that contains finish time of all activities
-        int i, j;
-
-        // The first activity always gets selected
-        i = 0;
+        int i = 0;
         text = new Text(activities.get(i).getNamaKegiatan());
         GridPane.setMargin(text, new Insets(20));
         ruangan.add(text,ruang,row++);
         del.add(this.activities.get(i));
 
-        for(j = 1; j < this.activities.size(); j++){
+        for(int j = 1; j < this.activities.size(); j++){
             if (activities.get(j).getWaktuMulai().toSecondOfDay() >= activities.get(i).getWaktuSelesai().toSecondOfDay())
             {
                 del.add(this.activities.get(j));
@@ -81,6 +84,7 @@ public class OutputController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        activities = FXCollections.observableArrayList();
         colNama.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getNamaKegiatan()));
         colMulai.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getWaktuMulai().toString()));
         colSelesai.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getWaktuSelesai().toString()));
