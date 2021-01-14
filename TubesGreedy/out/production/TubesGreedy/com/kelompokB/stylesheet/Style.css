@@ -1,0 +1,31 @@
+.button{
+    -fx-background-color: #348dfa;
+}
+
+.button:hover{
+    -fx-background-color: #8bbefc;
+}
+
+.button2{
+    -fx-background-color: #ff0f47;
+}
+
+.button2:hover{
+    -fx-background-color: #ff8aa5;
+}
+
+.button3{
+    -fx-background-color: #12c441;
+}
+
+.button3:hover{
+    -fx-background-color: #73fa97;
+}
+
+.button4{
+    -fx-background-color: #f0e51d;
+}
+
+.button4:hover{
+    -fx-background-color: #fcf688;
+}

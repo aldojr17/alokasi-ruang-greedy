@@ -53,7 +53,7 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
          <children>
-            <TableView fx:id="tableKegiatan" onMouseClicked="#tableKegiatanAction" prefHeight="200.0" prefWidth="200.0" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS">
+            <TableView fx:id="tableKegiatan" onMouseClicked="#tableKegiatanAction" prefHeight="200.0" prefWidth="200.0" stylesheets="@../stylesheet/Style.css" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS">
               <columns>
                 <TableColumn fx:id="colNamaKegiatan" prefWidth="230.0" text="Nama Kegiatan" />
                   <TableColumn fx:id="colWaktuMulai" prefWidth="125.0" text="Waktu Mulai" />
@@ -89,10 +89,10 @@
                   <TextArea fx:id="namaKegiatan" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowSpan="2" />
                   <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnSpan="2147483647" GridPane.hgrow="ALWAYS" GridPane.rowIndex="6">
                      <children>
-                        <Button fx:id="btnSaveKegiatan" mnemonicParsing="false" onAction="#saveAction" text="Save" />
-                        <Button mnemonicParsing="false" onAction="#resetAction" text="Reset" />
-                        <Button fx:id="btnUpdateKegiatan" disable="true" mnemonicParsing="false" onAction="#updateAction" text="Update" />
-                        <Button fx:id="btnDeleteKegiatan" disable="true" mnemonicParsing="false" onAction="#deleteAction" text="Delete" />
+                        <Button fx:id="btnSaveKegiatan" mnemonicParsing="false" onAction="#saveAction" stylesheets="@../stylesheet/Style.css" text="Save" textFill="WHITE" />
+                        <Button mnemonicParsing="false" onAction="#resetAction" styleClass="button2" stylesheets="@../stylesheet/Style.css" text="Reset" textFill="WHITE" />
+                        <Button fx:id="btnUpdateKegiatan" disable="true" mnemonicParsing="false" onAction="#updateAction" styleClass="button4" stylesheets="@../stylesheet/Style.css" text="Update" textFill="WHITE" />
+                        <Button fx:id="btnDeleteKegiatan" disable="true" mnemonicParsing="false" onAction="#deleteAction" styleClass="button2" stylesheets="@../stylesheet/Style.css" text="Delete" textFill="WHITE" />
                      </children>
                   </HBox>
                   <Label text="Waktu Mulai" GridPane.rowIndex="2" />
@@ -101,7 +101,7 @@
                   <TextField fx:id="waktuSelesai" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#outputAction" text="Next" />
+                        <Button mnemonicParsing="false" onAction="#outputAction" styleClass="button3" stylesheets="@../stylesheet/Style.css" text="Next" textFill="WHITE" />
                      </children>
                   </HBox>
                </children>
