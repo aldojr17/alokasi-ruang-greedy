@@ -47,7 +47,16 @@ public class OutputController implements Initializable {
         tableActivity.setItems(activitySortedList);
     }
 
-    public void output() {
+    public void output() throws InterruptedException {
+        System.out.println("Daftar Aktivitas :");
+        TimeUnit.SECONDS.sleep(2);
+        for(Activity a : activities){
+            System.out.println("- " + a.getNamaKegiatan() +
+                    "\t( " + a.getWaktuMulai() + "-" + a.getWaktuSelesai() + " ) ");
+            TimeUnit.SECONDS.sleep(2);
+        }
+        System.out.println();
+
         int ruang = 0;
         while (activities.size() > 0){
             greedyAlgorithm(activities, ruang);
@@ -55,19 +64,26 @@ public class OutputController implements Initializable {
         }
     }
 
-    public void greedyAlgorithm(ObservableList<Activity> activities, int ruang) {
+    public void greedyAlgorithm(ObservableList<Activity> activities, int ruang) throws InterruptedException {
         ArrayList<Activity> del = new ArrayList<Activity>();
         int row = 0;
 
         Text text = new Text("Ruang " + (ruang+1));
         GridPane.setMargin(text, new Insets(20));
         ruangan.add(text,ruang,row++);
+        System.out.println("Ruang " + (ruang+1));
+
+        TimeUnit.SECONDS.sleep(2);
 
         int i = 0;
         text = new Text(activities.get(i).getNamaKegiatan());
         GridPane.setMargin(text, new Insets(20));
         ruangan.add(text,ruang,row++);
         del.add(this.activities.get(i));
+        System.out.println("- " + activities.get(i).getNamaKegiatan() +
+                "\t( " + activities.get(i).getWaktuMulai() + "-" + activities.get(i).getWaktuSelesai() + " ) ");
+
+        TimeUnit.SECONDS.sleep(2);
 
         for(int j = 1; j < this.activities.size(); j++){
             if (activities.get(j).getWaktuMulai().toSecondOfDay() >= activities.get(i).getWaktuSelesai().toSecondOfDay())
@@ -76,9 +92,13 @@ public class OutputController implements Initializable {
                 text = new Text(activities.get(j).getNamaKegiatan());
                 GridPane.setMargin(text, new Insets(20));
                 ruangan.add(text,ruang,row++);
+                System.out.println("- " + activities.get(j).getNamaKegiatan() +
+                        "\t( " + activities.get(j).getWaktuMulai() + "-" + activities.get(j).getWaktuSelesai() + " ) ");
                 i = j;
+                TimeUnit.SECONDS.sleep(2);
             }
         }
+        System.out.println();
         this.activities.removeAll(del);
     }
 

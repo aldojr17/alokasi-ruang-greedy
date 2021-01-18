@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
 
 public class MainController implements Initializable {
     @FXML
@@ -124,11 +125,6 @@ public class MainController implements Initializable {
 //    }
 
     @FXML
-    private void tableMenuAction(MouseEvent mouseEvent) {
-
-    }
-
-    @FXML
     private void updateAction(ActionEvent actionEvent) {
 //        if(txtName.getText().trim().isEmpty() || txtPrice.getText().trim().isEmpty() || txtDescription.getText().trim().isEmpty() || comboCategory.getValue() == null){
 //            Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -189,7 +185,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    private void outputAction(ActionEvent actionEvent) throws IOException {
+    private void outputAction(ActionEvent actionEvent) throws IOException, InterruptedException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("view/output_layout.fxml"));
         Parent root = loader.load();
         OutputController outputController = loader.getController();
