@@ -24,6 +24,7 @@ import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class OutputController implements Initializable {
     private MainController mainController;
@@ -39,14 +40,14 @@ public class OutputController implements Initializable {
     public void setMainController(MainController mainController){
         this.mainController = mainController;
         listActivity = mainController.getActivities();
-        activities.addAll(listActivity);
 
         Comparator<Activity> comparator = Comparator.comparing(Activity::getWaktuSelesai);
         SortedList<Activity> activitySortedList = new SortedList<>(listActivity, comparator);
+        activities.addAll(activitySortedList);
         tableActivity.setItems(activitySortedList);
     }
 
-    public void output(){
+    public void output() {
         int ruang = 0;
         while (activities.size() > 0){
             greedyAlgorithm(activities, ruang);
@@ -54,8 +55,7 @@ public class OutputController implements Initializable {
         }
     }
 
-    public void greedyAlgorithm(ObservableList<Activity> activities, int ruang)
-    {
+    public void greedyAlgorithm(ObservableList<Activity> activities, int ruang) {
         ArrayList<Activity> del = new ArrayList<Activity>();
         int row = 0;
 
