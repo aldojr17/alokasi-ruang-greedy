@@ -48,13 +48,15 @@ public class OutputController implements Initializable {
     }
 
     public void output() throws InterruptedException {
-        System.out.println("Daftar Aktivitas :");
-        TimeUnit.SECONDS.sleep(2);
+        System.out.println("Daftar Aktivitas yang sudah di sorting:");
+        TimeUnit.SECONDS.sleep(1);
         for(Activity a : activities){
             System.out.println("- " + a.getNamaKegiatan() +
-                    "\t( " + a.getWaktuMulai() + "-" + a.getWaktuSelesai() + " ) ");
-            TimeUnit.SECONDS.sleep(2);
+                    "\t( " + a.getWaktuMulai() + " - " + a.getWaktuSelesai() + " ) ");
+            TimeUnit.SECONDS.sleep(1);
         }
+        System.out.println();
+        System.out.println("Proses pembagian ruangan:");
         System.out.println();
 
         int ruang = 0;
@@ -73,7 +75,7 @@ public class OutputController implements Initializable {
         ruangan.add(text,ruang,row++);
         System.out.println("Ruang " + (ruang+1));
 
-        TimeUnit.SECONDS.sleep(2);
+        TimeUnit.SECONDS.sleep(1);
 
         int i = 0;
         text = new Text(activities.get(i).getNamaKegiatan());
@@ -81,21 +83,27 @@ public class OutputController implements Initializable {
         ruangan.add(text,ruang,row++);
         del.add(this.activities.get(i));
         System.out.println("- " + activities.get(i).getNamaKegiatan() +
-                "\t( " + activities.get(i).getWaktuMulai() + "-" + activities.get(i).getWaktuSelesai() + " ) ");
+                "\t( " + activities.get(i).getWaktuMulai() + " - " + activities.get(i).getWaktuSelesai() + " ) ");
 
-        TimeUnit.SECONDS.sleep(2);
+        TimeUnit.SECONDS.sleep(1);
 
         for(int j = 1; j < this.activities.size(); j++){
-            if (activities.get(j).getWaktuMulai().toSecondOfDay() >= activities.get(i).getWaktuSelesai().toSecondOfDay())
-            {
+            if (activities.get(j).getWaktuMulai().toSecondOfDay() >= activities.get(i).getWaktuSelesai().toSecondOfDay()) {
                 del.add(this.activities.get(j));
                 text = new Text(activities.get(j).getNamaKegiatan());
                 GridPane.setMargin(text, new Insets(20));
                 ruangan.add(text,ruang,row++);
                 System.out.println("- " + activities.get(j).getNamaKegiatan() +
-                        "\t( " + activities.get(j).getWaktuMulai() + "-" + activities.get(j).getWaktuSelesai() + " ) ");
+                        "\t( " + activities.get(j).getWaktuMulai() + " - " + activities.get(j).getWaktuSelesai() + " " +
+                        ") ");
                 i = j;
-                TimeUnit.SECONDS.sleep(2);
+                TimeUnit.SECONDS.sleep(1);
+            }else{
+                System.out.println("X " + activities.get(j).getNamaKegiatan() +
+                        "\t( " + activities.get(j).getWaktuMulai() + " - " + activities.get(j).getWaktuSelesai() + " " +
+                        ") " +
+                        "Waktu Mulai lebih cepat dari Waktu Selesai " + activities.get(i).getNamaKegiatan());
+                TimeUnit.SECONDS.sleep(1);
             }
         }
         System.out.println();

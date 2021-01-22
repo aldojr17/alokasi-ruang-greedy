@@ -91,14 +91,13 @@
                      <children>
                         <Button fx:id="btnSaveKegiatan" mnemonicParsing="false" onAction="#saveAction" stylesheets="@../stylesheet/Style.css" text="Save" textFill="WHITE" />
                         <Button mnemonicParsing="false" onAction="#resetAction" styleClass="button2" stylesheets="@../stylesheet/Style.css" text="Reset" textFill="WHITE" />
-                        <Button fx:id="btnUpdateKegiatan" disable="true" mnemonicParsing="false" onAction="#updateAction" styleClass="button4" stylesheets="@../stylesheet/Style.css" text="Update" textFill="WHITE" />
                         <Button fx:id="btnDeleteKegiatan" disable="true" mnemonicParsing="false" onAction="#deleteAction" styleClass="button2" stylesheets="@../stylesheet/Style.css" text="Delete" textFill="WHITE" />
                      </children>
                   </HBox>
                   <Label text="Waktu Mulai" GridPane.rowIndex="2" />
                   <Label text="Waktu Selesai" GridPane.rowIndex="3" />
-                  <TextField fx:id="waktuMulai" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField fx:id="waktuSelesai" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="waktuMulai" GridPane.columnIndex="1" GridPane.rowIndex="2" promptText="09:00"/>
+                  <TextField fx:id="waktuSelesai" GridPane.columnIndex="1" GridPane.rowIndex="3" promptText="10:00"/>
                   <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
                      <children>
                         <Button mnemonicParsing="false" onAction="#outputAction" styleClass="button3" stylesheets="@../stylesheet/Style.css" text="Next" textFill="WHITE" />

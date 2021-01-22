@@ -20,8 +20,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.ResourceBundle;
-import java.util.concurrent.TimeUnit;
 
 public class MainController implements Initializable {
     @FXML
@@ -39,8 +39,6 @@ public class MainController implements Initializable {
     @FXML
     private Button btnSaveKegiatan;
     @FXML
-    private Button btnUpdateKegiatan;
-    @FXML
     private Button btnDeleteKegiatan;
     @FXML
     private TextField waktuMulai;
@@ -57,22 +55,28 @@ public class MainController implements Initializable {
             alert.setContentText("Please fill Nama Kegiatan/ Waktu Mulai/ Waktu Selesai");
             alert.showAndWait();
         }else{
-//            if(duplicate(namaKegiatan.getText().trim(), waktuMulai.getText().trim(), waktuSelesai.getText().trim())){
-//                Alert alert =  new Alert(Alert.AlertType.ERROR);
-//                alert.setContentText("Duplicate menu");
-//                alert.showAndWait();
-//            }else{
-            Activity activity = new Activity();
-            activity.setNamaKegiatan(namaKegiatan.getText().trim());
-            time = LocalTime.parse(waktuMulai.getText().trim());
-            activity.setWaktuMulai(time);
-            time = LocalTime.parse(waktuSelesai.getText().trim());
-            activity.setWaktuSelesai(time);
-            activities.add(activity);
-            namaKegiatan.clear();
-            waktuMulai.clear();
-            waktuSelesai.clear();
-//            }
+            if(duplicate(namaKegiatan.getText().trim(), waktuMulai.getText().trim(), waktuSelesai.getText().trim())){
+                Alert alert =  new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Duplicate activity");
+                alert.showAndWait();
+            }else{
+                Activity activity = new Activity();
+                activity.setNamaKegiatan(namaKegiatan.getText().trim());
+                try{
+                    time = LocalTime.parse(waktuMulai.getText().trim());
+                    activity.setWaktuMulai(time);
+                    time = LocalTime.parse(waktuSelesai.getText().trim());
+                    activity.setWaktuSelesai(time);
+                    activities.add(activity);
+                    namaKegiatan.clear();
+                    waktuMulai.clear();
+                    waktuSelesai.clear();
+                }catch (DateTimeParseException e){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setContentText("Wrong Time Format : " + e.getMessage().substring(6,11));
+                    alert.showAndWait();
+                }
+            }
         }
     }
 
@@ -89,85 +93,69 @@ public class MainController implements Initializable {
     @FXML
     private void aboutAction(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("About Dialog");
+        alert.setTitle("About");
         alert.setHeaderText(null);
-        alert.setContentText("Tugas Besar Strategi Algoritmik");
+        alert.setContentText("Tugas Besar Strategi Algoritmik\n\n" +
+                "1872018 - Jonathan Leonardi Halim\n" +
+                "1872023 - Johanes Elian Farrel Kumara\n" +
+                "1872034 - Billy Arya Anugrah\n" +
+                "1872035 - Rivaldo Stuart Wattimena\n" +
+                "1872049 - Abhipraya Radhityaqso Esmano");
         alert.showAndWait();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         activities = FXCollections.observableArrayList();
-        activities.add(new Activity("A1",LocalTime.of(1,0), LocalTime.of(4,0)));
-        activities.add(new Activity("A2",LocalTime.of(3,0), LocalTime.of(5,0)));
         activities.add(new Activity("A3",LocalTime.of(0,0), LocalTime.of(6,0)));
         activities.add(new Activity("A4",LocalTime.of(5,0), LocalTime.of(7,0)));
-        activities.add(new Activity("A5",LocalTime.of(3,0), LocalTime.of(9,0)));
-        activities.add(new Activity("A6",LocalTime.of(5,0), LocalTime.of(9,0)));
-        activities.add(new Activity("A7",LocalTime.of(6,0), LocalTime.of(10,0)));
         activities.add(new Activity("A8",LocalTime.of(8,0), LocalTime.of(11,0)));
-        activities.add(new Activity("A9",LocalTime.of(8,0), LocalTime.of(12,0)));
+        activities.add(new Activity("A6",LocalTime.of(5,0), LocalTime.of(9,0)));
+        activities.add(new Activity("A1",LocalTime.of(1,0), LocalTime.of(4,0)));
         activities.add(new Activity("A10",LocalTime.of(2,0), LocalTime.of(14,0)));
+        activities.add(new Activity("A7",LocalTime.of(6,0), LocalTime.of(10,0)));
         activities.add(new Activity("A11",LocalTime.of(12,0), LocalTime.of(16,0)));
+        activities.add(new Activity("A5",LocalTime.of(3,0), LocalTime.of(9,0)));
+        activities.add(new Activity("A9",LocalTime.of(8,0), LocalTime.of(12,0)));
+        activities.add(new Activity("A2",LocalTime.of(3,0), LocalTime.of(5,0)));
         tableKegiatan.setItems(activities);
         colNamaKegiatan.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getNamaKegiatan()));
         colWaktuMulai.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getWaktuMulai().toString()));
         colWaktuSelesai.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getWaktuSelesai().toString()));
     }
 
-//    private boolean duplicate(String namaKegiatan, Time){
-//        for(int i = 0; i < menus.size(); i++){
-//            if(name.equals(menus.get(i).getName()) && category.getName().equals(menus.get(i).getCategory().getName())){
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-
-    @FXML
-    private void updateAction(ActionEvent actionEvent) {
-//        if(txtName.getText().trim().isEmpty() || txtPrice.getText().trim().isEmpty() || txtDescription.getText().trim().isEmpty() || comboCategory.getValue() == null){
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setContentText("Please fill name/ price/ description/ category");
-//            alert.showAndWait();
-//        }else{
-//            selectedMenu.setName(txtName.getText().trim());
-//            selectedMenu.setPrice(Double.parseDouble(txtPrice.getText().trim()));
-//            selectedMenu.setDescription(txtDescription.getText().trim());
-//            selectedMenu.setRecommended((byte) (checkboxRecommended.isSelected() ? 1 : 0));
-//            selectedMenu.setCategory(comboCategory.getValue());
-//            if (menuDao.updateData(selectedMenu) == 1){
-//                menus.clear();
-//                menus.addAll(menuDao.fetchAll());
-//                resetMenu();
-//            }
-//        }
+    private boolean duplicate(String namaKegiatan, String waktuMulai, String waktuSelesai){
+        for(Activity a : activities){
+            if(namaKegiatan.equals(a.getNamaKegiatan()) && waktuMulai.equals(a.getWaktuMulai().toString()) && waktuSelesai.equals(a.getWaktuSelesai().toString())){
+                return true;
+            }
+        }
+        return false;
     }
 
     @FXML
     private void deleteAction(ActionEvent actionEvent) {
-//        deleteObject(selectedMenu);
+        deleteObject(selectedActivity);
     }
 
     private void deleteObject(Object object){
-//        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-//        alert.setContentText("Are you sure want to delete?");
-//        alert.showAndWait();
-//        if(alert.getResult() == ButtonType.OK){
-//            if(object instanceof Menu){
-//                if (menuDao.deleteData(selectedMenu) == 1){
-//                    menus.clear();
-//                    menus.addAll(menuDao.fetchAll());
-//                    resetMenu();
-//                }
-//            }
-//        }
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setContentText("Are you sure want to delete?");
+        alert.showAndWait();
+        if(alert.getResult() == ButtonType.OK){
+            if(object instanceof Activity){
+                activities.remove(object);
+                resetMenu();
+            }
+        }
     }
 
     private void resetMenu(){
         namaKegiatan.clear();
         waktuMulai.clear();
         waktuSelesai.clear();
+        btnDeleteKegiatan.setDisable(true);
+        btnSaveKegiatan.setDisable(false);
     }
 
     @FXML
@@ -177,6 +165,8 @@ public class MainController implements Initializable {
             namaKegiatan.setText(selectedActivity.getNamaKegiatan());
             waktuMulai.setText(selectedActivity.getWaktuMulai().toString());
             waktuSelesai.setText(selectedActivity.getWaktuSelesai().toString());
+            btnDeleteKegiatan.setDisable(false);
+            btnSaveKegiatan.setDisable(true);
         }
     }
 
